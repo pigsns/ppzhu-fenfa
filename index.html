@@ -1,0 +1,315 @@
+<script type="text/javascript">
+    // 假设我们通过某种方式（例如Ajax从服务器获取或预定义在页面上）得到了userAgent和可能的url
+    let userAgent = navigator.userAgent; // 获取用户代理信息
+    let url = ''; // 这里需要根据实际情况获取url，例如从URL参数中提取
+    if (window.location.search) { // 检查URL中是否有查询字符串
+        const urlParams = new URLSearchParams(window.location.search);
+        url = urlParams.get('url') || '';
+    }
+
+    if (userAgent.indexOf('MicroMessenger') === -1 && url) {
+        let parsedUrl;
+        try {
+            parsedUrl = new URL(url);
+            let domain = parsedUrl.hostname; // 获取完整域名
+
+            // 修正域名以匹配PHP的处理方式
+            domain = domain.replace(/^.*?\.(.*)$/, '$1', 'i');
+
+            // 泛域名模式数组
+            const domainPatterns = ['appzhu.cn', 'ppzhu.net', 'laiff.cn', 'appff.sbs','payzhu.online','ggkd,gyhw1,com','payzhu.com','gansuboruiyinkeji.com','yiwailian.com','maofabu.cn','zhufenfa.com','pigfenfa.com'];
+
+            // 检查域名是否匹配任何一个泛域名模式
+            let matched = false;
+            for (const pattern of domainPatterns) {
+                if (domain === pattern) {
+                    matched = true;
+                    break;
+                }
+            }
+
+            if (matched) {
+                // 使用JavaScript进行页面跳转
+                window.location.href = url;
+            } else {
+                alert("非法请求"+domain); // 或其他合适的错误提示方式
+                window.location.href = 'about:blank';
+            }
+        } catch (e) {
+            console.error('解析URL时出错:', e);
+        }
+    }
+
+</script>
+
+<!doctype html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>使用浏览器打开</title>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta name="format-detection" content="telephone=no">
+    <meta content="false" name="twcClient" id="twcClient">
+    <meta name="aplus-touch" content="1">
+    <style>
+        body,
+        html {
+            width: 100%;
+            height: 100%
+        }
+
+        * {
+            margin: 0;
+            padding: 0
+        }
+
+        body {
+            background-color: #fff
+        }
+
+        #browser img {
+            width: 50px;
+        }
+
+        #browser {
+            margin: 0px 10px;
+            text-align: center;
+        }
+
+        #contens {
+            font-weight: bold;
+            margin: -285px 0px 10px;
+            text-align: center;
+            font-size: 20px;
+            margin-bottom: 125px;
+        }
+
+        .top-bar-guidance {
+            font-size: 15px;
+            color: #fff;
+            height: 70%;
+            line-height: 1.8;
+            padding-left: 20px;
+            padding-top: 20px;
+            background: url(https://ppzhus.laiff.cn/img/temp/20200418224107.png) center top/contain no-repeat
+        }
+
+        .top-bar-guidance .icon-safari {
+            width: 25px;
+            height: 25px;
+            vertical-align: middle;
+            margin: 0 .2em
+        }
+
+        .app-download-tip {
+            margin: 0 auto;
+            width: 290px;
+            text-align: center;
+            font-size: 15px;
+            color: #2466f4;
+            background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAcAQMAAACak0ePAAAABlBMVEUAAAAdYfh+GakkAAAAAXRSTlMAQObYZgAAAA5JREFUCNdjwA8acEkAAAy4AIE4hQq/AAAAAElFTkSuQmCC) left center/auto 15px repeat-x
+        }
+
+        .app-download-tip .guidance-desc {
+            background-color: #fff;
+            padding: 0 5px
+        }
+
+        .app-download-btn {
+            display: block;
+            width: 214px;
+            height: 40px;
+            line-height: 40px;
+            margin: 18px auto 0 auto;
+            text-align: center;
+            font-size: 18px;
+            color: #2466f4;
+            border-radius: 20px;
+            border: .5px #2466f4 solid;
+            text-decoration: none
+        }
+
+        .layui-form-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding:20px 20px 0;
+        }
+
+        .layui-form-item label {
+            padding-right: 10px;
+            font-size: 13px;
+        }
+
+        .layui-form-item input {
+            height: 40px;
+            line-height: 40px;
+            padding: 10px;
+            border: 1px #ededed solid;
+            font-size: 13px;
+        }
+        .layui-form-item textarea {
+            height: 100px;
+            width: 182px;
+            line-height: 28px;
+            padding: 10px;
+            border: 1px #ededed solid;
+            font-size: 13px;
+            font-family: "微软雅黑";
+        }
+        .layui-form-item button{
+            width: 180px;
+            height: 40px;
+            line-height: 40px;
+            margin-bottom: 30px;
+            border: none;
+            background-color: #2466f4;
+            color: #fff;
+            border-radius: 5px;
+        }
+        .layui-layer{
+            border-radius: 10px !important;
+        }
+        .layui-layer-title{
+            border-radius: 10px 10px 0 0 !important;
+        }
+    </style>
+    <link rel="stylesheet" href="https://ppzhus.laiff.cn/img/temp/layer.css" media="all">
+</head>
+
+<body>
+    <div class="top-bar-guidance">
+        <p style="color:#fff">点击右上角<img src="https://ppzhus.laiff.cn/img/temp/gengduo.svg" class="icon-safari"> <span
+                id="openm">按钮</span></p>
+        <p style="color:#fff">选择默认浏览器打开~</p>
+    </div>
+    <a style="display: none;" href="" id="vurl" rel="noreferrer"></a>
+    <div id="contens">
+        点击右上角按钮<br /><br />
+        选择默认浏览器打开本页面<br /><br />
+
+        <p style="font-size: 12px;line-height: 30px;color: red;">
+            温馨提示：平台禁止上传违法违纪应用，如有发现立即封禁<br />如您的财产安全受到威胁，请<span style="color: #2466f4;"
+                onclick="openfrom()">立即举报</span><br />
+        </p>
+
+    </div>
+    <div id="browser">
+        <img src="https://ppzhus.laiff.cn/img/temp/20200418224032.png">
+        <img src="https://ppzhus.laiff.cn/img/temp/20200418224624.jpg"></img>
+        <img src="https://ppzhus.laiff.cn/img/temp/20200418224710.jpg"></img>
+        <img src="https://ppzhus.laiff.cn/img/temp/20200418224632.jpg"></img>
+        <img src="https://ppzhus.laiff.cn/img/temp/20200418224701.jpg"></img>
+    </div>
+    <div class="app-download-tip">
+        <span class="guidance-desc">请使用默认浏览器打开本页面</span>
+    </div>
+
+    <div id="jbFrom" style="display: none;">
+        <div class="layui-form" >
+            <div class="layui-form-item">
+                <label class="layui-form-label">举报URL</label>
+                <div class="layui-input-block">
+                    <input type="text" id="jb_url" disabled required placeholder="请输入举报URL" autocomplete="off"
+                        class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">举报原因</label>
+                <div class="layui-input-block">
+                    <textarea id="jb_desc" required placeholder="请输入举报内容" class="layui-textarea"></textarea>
+                </div>
+            </div>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">您 Email</label>
+                <div class="layui-input-block">
+                    <input type="text" id="jb_email" required placeholder="请输入您查收结果的Email" autocomplete="off"
+                        class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label"></label>
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="formDemo" onclick="postFrom()">立即举报</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://ppzhus.laiff.cn/img/temp/jquery-3.3.1.min.js"></script>
+    <script src="https://ppzhus.laiff.cn/img/temp/clipboard.min.js"></script>
+    <script src="https://ppzhus.laiff.cn/static/layer/layer.js"></script>
+    <a data-clipboard-text="<?PHP echo $url;?>" class="app-download-btn" id="changeDataBtn">点此复制，到浏览器打开</a>
+    <script type="text/javascript">
+        new ClipboardJS(".app-download-btn");
+        $(".app-download-btn").click(function () {
+            let button = document.getElementById('changeDataBtn');
+            // 设置初始的data-clipboard-text值
+            button.setAttribute('data-clipboard-text', url);
+
+            layer.tips("复制成功", ".app-download-btn", {
+                tips: [3, "rgb(38,111,250)"],
+                time: 500
+            });
+        })
+
+        $(function () {
+            $('#jb_url').val(url);
+        })
+
+        function openfrom() {
+            layer.open({
+                type: 1,
+                title: '我要举报',
+                content: $('#jbFrom') //这里content是一个DOM，注意：最好该元素要存放在body最外层，否则可能被其它的相对元素所影响
+            });
+        }
+
+        function postFrom(){
+            let url = $('#jb_url').val();
+            if(url == ''){
+                layer.msg('请输入举报URL');
+                return false;
+            }
+            if($('#jb_desc').val() == ''){
+                layer.msg('请输入举报内容');
+                return false;
+            }
+            if($('#jb_email').val() == ''){
+                layer.msg('请输入您的Email');
+                return false;
+            }
+            //检查邮箱
+            let reg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+            if(!reg.test($('#jb_email').val())){
+                layer.msg('请输入正确的Email');
+                return false;
+            }
+            $.ajax({
+                type: "POST",
+                url: "https://ppzhus.laiff.cn/JubaoFrom.php",
+                data: {
+                    url: url,
+                    desc: $('#jb_desc').val(),
+                    email: $('#jb_email').val()
+                },
+                dataType: "json",
+                success: function (data) {
+                    if (data.code ==200) {
+                        layer.msg('已收到您的举报，24小时内将会告知您处理结果，请留意邮箱！');
+                        setTimeout(function () {
+                            layer.closeAll()
+                        }, 3000);                        
+                    }else{
+                        layer.msg(data.msg);
+                    }
+                }
+            })
+            return false
+        }
+    </script>
+
+    </html>
